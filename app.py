@@ -36,3 +36,10 @@ def click_event():
 
     return jsonify({"status": "success", "message": "Click event processed"}), 200
 
+
+
+if __name__ == '__main__':
+    print("Server is running on http://localhost:8080")
+    print("Listening for click events...")
+    app.run(host='0.0.0.0', port=8080)
+
