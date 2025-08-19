@@ -5,7 +5,7 @@ from confluent_kafka import Producer
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}}, supports_credentials=True)
 import os
 
 conf = {
