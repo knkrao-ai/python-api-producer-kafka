@@ -3,6 +3,7 @@ from flask_cors import CORS
 import json
 from confluent_kafka import Producer
 import os
+from google.cloud import pubsub_v1
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}}, supports_credentials=True)
@@ -36,7 +37,15 @@ def click_event():
 
     return jsonify({"status": "success", "message": "Click event processed"}), 200
 
-
+@app.route('/event-for-pub-sub', methods=['post'])
+def event-for-pub-sub():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+    event_str = json.dumps(data)
+    publisher = pubsub_v1.PublisherClient()
+    publisher.publish(pubsub_topic, event_str)
+    return jsonify({"status": "success", "message": "Click event processed"}), 200
 
 if __name__ == '__main__':
     print("Server is running on http://localhost:8080")
