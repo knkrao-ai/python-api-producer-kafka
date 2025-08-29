@@ -9,24 +9,28 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}}, supports_credentials=True)
 import os
 
-conf = {
-    'bootstrap.servers': os.environ["BOOTSTRAP_SERVERS"],
-    'security.protocol': 'SASL_SSL',
-    'sasl.mechanism': 'PLAIN',
-    'sasl.username': os.environ["SASL_USERNAME"],
-    'sasl.password': os.environ["SASL_PASSWORD"],
-}
+producer = null
 
-# Initialize producer
-producer = Producer(conf)
-TOPIC_NAME = "clickStreamTopic1"
 
 @app.route('/click-event', methods=['post'])
 def click_event():
     data = request.get_json()
     if not data:
         return jsonify({"error": "No data provided"}), 400
+    conf = {
+        'bootstrap.servers': os.environ["BOOTSTRAP_SERVERS"],
+        'security.protocol': 'SASL_SSL',
+        'sasl.mechanism': 'PLAIN',
+        'sasl.username': os.environ["SASL_USERNAME"],
+        'sasl.password': os.environ["SASL_PASSWORD"],
+        }
 
+    # Initialize producer
+    if(producer == null):
+        producer = Producer(conf)
+
+    TOPIC_NAME = "clickStreamTopic1"
+    
     # Process the click event data
     print("Received click event:", json.dumps(data, indent=2))
     event_str = json.dumps(data)
