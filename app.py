@@ -3,7 +3,7 @@ from flask_cors import CORS
 import json
 import os
 # from confluent_kafka import Producer
- from google.cloud import pubsub_v1
+from google.cloud import pubsub_v1
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}}, supports_credentials=True)
