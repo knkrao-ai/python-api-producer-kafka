@@ -44,7 +44,7 @@ def event-for-pub-sub():
         return jsonify({"error": "No data provided"}), 400
     event_str = json.dumps(data)
     publisher = pubsub_v1.PublisherClient()
-    publisher.publish(pubsub_topic, event_str)
+    publisher.publish("projects/stoked-harbor-444616-v8/topics/click-stream-1", event_str)
     return jsonify({"status": "success", "message": "Click event processed"}), 200
 
 if __name__ == '__main__':
