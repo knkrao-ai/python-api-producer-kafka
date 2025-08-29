@@ -1,4 +1,4 @@
 flask
 flask-cors
-confluent-kafka
-google-cloud-pubsub
+#confluent-kafka
+#google-cloud-pubsub
