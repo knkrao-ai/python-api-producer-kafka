@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
-from confluent_kafka import Producer
+#from confluent_kafka import Producer
 import os
 from google.cloud import pubsub_v1
 
@@ -27,15 +27,15 @@ def click_event():
 
     # Initialize producer
     if(producer == null):
-        producer = Producer(conf)
+        #producer = Producer(conf)
 
     TOPIC_NAME = "clickStreamTopic1"
     
     # Process the click event data
     print("Received click event:", json.dumps(data, indent=2))
     event_str = json.dumps(data)
-    producer.produce(TOPIC_NAME, key=data.get("user_id"), value=event_str)
-    producer.flush()
+    #producer.produce(TOPIC_NAME, key=data.get("user_id"), value=event_str)
+    #producer.flush()
 
     # Here you can add logic to handle the click event, e.g., store it in a database
 
